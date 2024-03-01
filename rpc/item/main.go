@@ -1,8 +1,8 @@
 package main
 
 import (
-	item "example_shop/kitex_gen/example/shop/item/itemservice"
 	"log"
+	item "mykitex/kitex_gen/example/shop/item/itemservice"
 )
 
 func main() {

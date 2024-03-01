@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	stock "example_shop/kitex_gen/example/shop/stock"
+	stock "mykitex/kitex_gen/example/shop/stock"
 )
 
 // StockServiceImpl implements the last service interface defined in the IDL.
