@@ -1,0 +1,29 @@
+syntax = "proto3";
+package item;
+// 第一个分割参数，输出路径；第二个设置生成类的包路径
+
+option go_package = "example/shop/item";
+// 引入公共文件
+import "idl/base.proto";
+// 所有字段默认必填，
+
+message Item {
+int64 id=1;
+string title=2;
+string description=3;
+int64 stock=4;
+}
+
+message GetItemReq {
+  int64 id=1;
+}
+
+message GetItemResp {
+  Item item=1;
+  base.BaseResp baseResp=255;
+}
+
+service ItemService{
+   rpc GetItem(GetItemReq) returns (GetItemResp);
+}
+

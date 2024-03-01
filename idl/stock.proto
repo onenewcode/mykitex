@@ -1,0 +1,21 @@
+syntax = "proto3";
+package item;
+// 第一个分割参数，输出路径；第二个设置生成类的包路径
+option go_package = "example/shop/stock";
+// 引入公共文件
+import "idl/base.proto";
+
+// 设置服务名称
+message GetItemStockReq {
+  int64 item_id = 1;
+}
+
+message GetItemStockResp {
+  int64 stock = 1;
+
+  base.BaseResp base_resp = 255; // 在 protobuf 中，字段名应遵循小写字母和下划线的命名规范
+}
+
+service StockService {
+  rpc GetItemStock(GetItemStockReq) returns (GetItemStockResp);
+}

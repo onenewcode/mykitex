@@ -1,0 +1,14 @@
+syntax = "proto3";
+// 设置生成类的包路径
+package base;
+
+// 输出路径；
+option go_package = "example/shop/base";
+
+
+
+// 设置基础结构体
+message BaseResp{
+    string code=1;
+    string msg=2;
+}
