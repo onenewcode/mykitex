@@ -15,5 +15,5 @@ func (s *ItemServiceImpl) GetItem(ctx context.Context, req *item.GetItemReq) (re
 	resp.Item.Id = req.GetId()
 	resp.Item.Title = "Kitex"
 	resp.Item.Description = "Kitex is an excellent framework!"
-	return
+	return resp, nil
 }

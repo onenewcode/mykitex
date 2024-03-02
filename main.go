@@ -1,47 +1,27 @@
 package main
 
 import (
+	"context"
 	"github.com/cloudwego/kitex/client"
-	"github.com/kitex-contrib/registry-nacos/v2/resolver"
-	"github.com/nacos-group/nacos-sdk-go/v2/clients"
-	"github.com/nacos-group/nacos-sdk-go/v2/common/constant"
-	"github.com/nacos-group/nacos-sdk-go/v2/vo"
+	"github.com/kitex-contrib/registry-zookeeper/resolver"
 	"log"
+	"mykitex/kitex_gen/example/shop/item"
 	"mykitex/kitex_gen/example/shop/item/itemservice"
-)
-
-var (
-	cli itemservice.Client
+	"time"
 )
 
 func main() {
-	sc := []constant.ServerConfig{
-		*constant.NewServerConfig("127.0.0.1", 8848),
-	}
-	cc := constant.ClientConfig{
-		NamespaceId:         "public",
-		TimeoutMs:           5000,
-		NotLoadCacheAtStart: true,
-		LogDir:              "/tmp/nacos/log",
-		CacheDir:            "/tmp/nacos/cache",
-		LogLevel:            "info",
-		Username:            "your-name",
-		Password:            "your-password",
-	}
-
-	cli, err := clients.NewNamingClient(
-		vo.NacosClientParam{
-			ClientConfig:  &cc,
-			ServerConfigs: sc,
-		},
-	)
+	r, err := resolver.NewZookeeperResolver([]string{"121.37.143.160:2181"}, 40*time.Second)
 	if err != nil {
 		panic(err)
 	}
-	my_client, err := itemservice.NewClient("echo", client.WithResolver(resolver.NewNacosResolver(cli)))
+	my_client, err := itemservice.NewClient("item", client.WithResolver(r))
+
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		v, _ := my_client.GetItem(context.Background(), &item.GetItemReq{Id: 1})
+		log.Println(v)
 	}
-	log.Println(my_client)
 
 }
