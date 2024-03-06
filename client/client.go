@@ -12,7 +12,7 @@ import (
 
 func main() {
 	// 使用时请传入真实 etcd 的服务地址，本例中为 127.0.0.1:2379
-	r, err := etcd.NewEtcdResolver([]string{"121.37.143.160:2379"})
+	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
 		log.Fatal(err)
 	}
